@@ -260,8 +260,29 @@ GEM
 
 PLATFORMS
 <<<<<<< HEAD
-  x86_64-darwin-21
-=======
+  arm64-darwin-23
+    x86_64-darwin-22
+    x86_64-linux
+
+  DEPENDENCIES
+    autoprefixer-rails
+    bootsnap
+    bootstrap (~> 5.2)
+    capybara
+    debug
+    devise
+    dotenv-rails
+    font-awesome-sass (~> 6.1)
+    importmap-rails
+    jbuilder
+    pg (~> 1.1)
+    puma (~> 5.0)
+    rails (~> 7.0.8)
+    sassc-rails
+    selenium-webdriver
+    simple_form!
+    sprockets-rails
+    stimulus-rails
   arm64-darwin-23
 >>>>>>> 0d819a15bb139fcaf3a40e24558d948c10f6ae39
   x86_64-darwin-22
