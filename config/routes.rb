@@ -7,4 +7,6 @@ Rails.application.routes.draw do
       patch 'archive'
     end
   end
+
+  resources :users, only: %i[show]
 end
