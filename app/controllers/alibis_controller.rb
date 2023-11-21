@@ -1,5 +1,6 @@
 class AlibisController < ApplicationController
   before_action :set_alibi, only: %i[show edit update archive]
+  skip_before_action :authenticate_user!, only: %i[index show]
 
   def index
     @alibis = Alibi.all
