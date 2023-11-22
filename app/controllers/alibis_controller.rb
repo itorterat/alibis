@@ -8,6 +8,7 @@ class AlibisController < ApplicationController
 
   def show
     @alibi = Alibi.find(params[:id])
+    @booking = Booking.new
   end
 
   def new

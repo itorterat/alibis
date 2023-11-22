@@ -1,3 +1,37 @@
-<h1>Show</h1>
+<div class="container my-3">
+  <div class="card col-8 my-5">
+    <%= image_tag("#{@alibi.category}.jpg", class: "card-img-top", alt: "Alt de mon alibi") %>
+    <div class="card-body">
+      <h5 class="card-title"><%= @alibi.title %></h5>
+      <p class="card-text"><%= @alibi.content %></p>
+    </div>
 
-<p><%= @alibi.inspect %></p>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Category: <%= @alibi.category %></li>
+      <li class="list-group-item">Date: <%= @alibi.date.strftime("%Y/%m/%d - %H:%M") %></li>
+      <li class="list-group-item">Price: <%= number_to_currency(@alibi.price, locale: :fr) %></li>
+    </ul>
+  </div>
+
+  <div class="bookings">
+    <% if current_user && current_user != @alibi.user && @alibi.bookings.where(user_id: current_user).size.zero? %>
+      <%= simple_form_for [@alibi, @booking] do |f| %>
+        <%= f.button :submit, 'Book this alibi', class: 'btn btn-outline-primary' %>
+      <% end %>
+    <% end %>
+
+    <% if current_user && current_user != @alibi.user && @alibi.bookings.where(user_id: current_user).size.positive? %>
+      <p>You already booked this alibi</p>
+    <% end %>
+
+    <% if current_user && current_user == @alibi.user %>
+      <% @alibi.bookings.where(status: :pending).each do |booking| %>
+        <div class="d-flex gap-3">
+          <%= button_to 'Accept', accept_booking_path(booking), method: :patch, class: 'btn btn-success' %>
+          <%= button_to 'Decline', decline_booking_path(booking), method: :patch, class: 'btn btn-danger' %>
+          <%= button_to 'Cancel', cancel_booking_path(booking), method: :patch, class: 'btn btn-dark' %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
