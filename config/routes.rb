@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :alibis do
     member do
-      patch 'archive'
+      patch :archive
     end
   end
 
