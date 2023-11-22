@@ -25,7 +25,7 @@ Alibi.create(
   date: Time.now + 5.day,
   image: "",
   price: 1000,
-  user_id: 1
+  user_id: User.find_by(email: 'john@smith.com')
 )
 Alibi.create(
   title: "Besoin d'une Homme ",
@@ -35,7 +35,7 @@ Alibi.create(
   date: Time.now + 2.day,
   image: "",
   price: 5000,
-  user_id: 2
+  user_id: User.find_by(email: 'jane@doe.com')
 )
 Alibi.create(
   title: "Sortie cinéma",
@@ -45,7 +45,7 @@ Alibi.create(
   date: Time.now + 7.day,
   image: "",
   price: 70,
-  user_id: 1
+  user_id: User.find_by(email: 'john@smith.com')
 )
 Alibi.create(
   title: "J'ai besoin de faire des photos",
@@ -55,7 +55,7 @@ Alibi.create(
   date: Time.now + 9.day,
   image: "",
   price: 1870,
-  user_id: 2
+  user_id: User.find_by(email: 'jane@doe.com')
 )
 puts "Alibis created !"
 
@@ -92,7 +92,7 @@ puts 'Alibis created!'
 puts 'Creating 1 booking...'
 Booking.create(
   status: :pending,
-  user_id: 2,
-  alibi_id: 1
+  user_id: User.find_by(email: 'jane@doe.com').id,
+  alibi_id: Alibi.find_by(title: 'Recherche une femme').id
 )
 puts 'Booking created!'
