@@ -25,6 +25,14 @@ class AlibisController < ApplicationController
     end
   end
 
+  def archive
+    if @alibi.update(status: :archived)
+      redirect_to edit_alibi_path(@alibi), notice: 'Alibi has been successfully archived.'
+    else
+      redirect_to edit_alibi_path(@alibi), alert: 'Error archiving alibi.'
+    end
+  end
+
   def edit; end
 
   def update
