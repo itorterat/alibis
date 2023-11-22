@@ -1,7 +1,13 @@
-<h1>Here the index</h1>
-
-<ul>
-  <% @alibis.each do |alibi| %>
-    <li><%= alibi.inspect %></li>
-  <% end %>
-</ul>
+<div class="container mt-3">
+  <div class="cards d-flex flex-wrap gap-3">
+    <% @alibis.reverse.each do |alibi| %>
+      <div class="card col-3" style="width: 18rem;">
+        <%= image_tag("#{alibi.category}.jpg", class: "card-img-top h-50 object-fit-cover", alt: "Alt de mon alibi") %>
+        <div class="card-body">
+          <h5 class="card-title"><%= alibi.title %></h5>
+          <%= link_to "See details", alibi_path(alibi), class: "btn btn-primary"%>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

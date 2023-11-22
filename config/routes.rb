@@ -3,8 +3,19 @@ Rails.application.routes.draw do
   root to: "pages#home"
 
   resources :alibis do
+    resources :bookings, only: %i[create]
     member do
-      patch 'archive'
+      patch :archive
     end
   end
+
+  resources :bookings, only: %i[] do
+    member do
+      patch :accept
+      patch :decline
+      patch :cancel
+    end
+  end
+
+  resources :users, only: %i[show]
 end
