@@ -16,8 +16,8 @@ class AlibisController < ApplicationController
 
   def create
     @alibi = Alibi.new(alibi_params)
-    @alibi.status = 'available'
     @alibi.user = current_user
+    @alibi.available!
     if @alibi.save
       redirect_to alibi_path(@alibi), notice: "Alibi was successfully created!"
     else
@@ -26,7 +26,7 @@ class AlibisController < ApplicationController
   end
 
   def archive
-    if @alibi.update(status: :archived)
+    if @alibi.archived!
       redirect_to edit_alibi_path(@alibi), notice: 'Alibi has been successfully archived.'
     else
       redirect_to edit_alibi_path(@alibi), alert: 'Error archiving alibi.'
