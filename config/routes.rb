@@ -7,4 +7,12 @@ Rails.application.routes.draw do
       patch 'archive'
     end
   end
+
+  resources :bookings, only: %i[show edit] do
+    member do
+      patch 'accept'
+      patch 'decline'
+      patch 'cancel'
+    end
+  end
 end
