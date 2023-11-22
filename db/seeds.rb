@@ -78,7 +78,7 @@ puts 'Creating 40 fake alibis...'
 40.times do
   Alibi.create!(
     title: Faker::Games::Pokemon.move,
-    content: Faker::TvShows::Simpsons.quote,
+    content: Faker::TvShows::Simpsons.quote + '.....',
     status: [0, 1].sample,
     category: %w[family date journey speak cinema].sample,
     date: Faker::Date.between(from: '2023-11-24', to: '2026-09-25'),
