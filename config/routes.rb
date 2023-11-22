@@ -8,5 +8,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :bookings, only: %i[show edit] do
+    member do
+      patch :accept
+      patch :decline
+      patch :cancel
+    end
+  end
+
   resources :users, only: %i[show]
 end
