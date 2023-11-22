@@ -88,3 +88,11 @@ puts 'Creating 40 fake alibis...'
   )
 end
 puts 'Alibis created!'
+
+puts 'Creating 1 booking...'
+Booking.create(
+  status: :pending,
+  user_id: 2,
+  alibi_id: 1
+)
+puts 'Booking created!'
