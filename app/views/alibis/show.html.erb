@@ -1,4 +1,10 @@
-<h1>Show</h1>
+<div class="container my-3">
+  <div class="card my-5 overflow-hidden rounded-4">
+    <%= image_tag("#{@alibi.category}.jpg", alt: "Alt de mon alibi") %>
+    <div class="card-body">
+      <h3 class="card-title"><%= @alibi.title %></h3>
+      <p class="card-text"><%= @alibi.content %></p>
+    </div>
 
 
 <h1><%= @alibi.title %></h1>

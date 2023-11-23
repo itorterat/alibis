@@ -10,10 +10,12 @@ class BookingsController < ApplicationController
   end
 
   def create
-    @booking = Booking.new(booking_params)
+    @booking = Booking.new
     @booking.status = :pending
+    @booking.alibi = Alibi.find(params[:alibi_id])
+    @booking.user = current_user
     if @booking.save
-      redirect_to @booking
+      redirect_to @booking.alibi
     else
       render 'new', status: :unprocessable_entity
     end
@@ -22,26 +24,29 @@ class BookingsController < ApplicationController
   def edit; end
 
   def accept
-    if @booking.update(status: :accepted)
-      redirect_to edit_alibi_path(@booking), notice: 'Booking has been successfully accepted.'
+    @alibi = @booking.alibi
+    if @booking.update(status: :approved)
+      redirect_to alibi_path(@alibi), notice: 'Booking has been successfully accepted.'
     else
-      redirect_to edit_alibi_path(@booking), alert: 'Error accepting booking.'
+      redirect_to alibi_path(@alibi), alert: 'Error accepting booking.'
     end
   end
 
   def decline
+    @alibi = @booking.alibi
     if @booking.update(status: :declined)
-      redirect_to edit_alibi_path(@booking), notice: 'Booking has been successfully declined.'
+      redirect_to alibi_path(@alibi), notice: 'Booking has been successfully declined.'
     else
-      redirect_to edit_alibi_path(@booking), alert: 'Error declining booking.'
+      redirect_to alibi_path(@alibi), alert: 'Error declining booking.'
     end
   end
 
   def cancel
+    @alibi = @booking.alibi
     if @booking.update(status: :cancelled)
-      redirect_to edit_alibi_path(@booking), notice: 'Booking has been successfully cancelled.'
+      redirect_to alibi_path(@alibi), notice: 'Booking has been successfully cancelled.'
     else
-      redirect_to edit_alibi_path(@booking), alert: 'Error cancelling booking.'
+      redirect_to alibi_path(@alibi), alert: 'Error cancelling booking.'
     end
   end
 
