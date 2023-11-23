@@ -7,6 +7,7 @@
     <%= f.input :content, as: :text, required: true %>
     <%= f.input :image %>
     <%= f.input :category, collection: Alibi::CATEGORIES, include_blank: false %>
+    <%= f.input :goal, collection: Alibi.goals.keys, include_blank: false %>
     <%= f.input :date, as: :datetime, required: true %>
     <%= f.input :price, required: true, input_html: { value: @alibi.price || 1, min: 0 } %>
   </div>
