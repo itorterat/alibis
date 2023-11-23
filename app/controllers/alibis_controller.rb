@@ -28,9 +28,9 @@ class AlibisController < ApplicationController
 
   def archive
     if @alibi.archived!
-      redirect_to edit_alibi_path(@alibi), notice: 'Alibi has been successfully archived.'
+      redirect_to alibis_path, notice: 'Alibi has been successfully archived.'
     else
-      redirect_to edit_alibi_path(@alibi), alert: 'Error archiving alibi.'
+      redirect_to alibi_path(@alibi), alert: 'Error archiving alibi.'
     end
   end
 
@@ -53,4 +53,5 @@ class AlibisController < ApplicationController
   def set_alibi
     @alibi = Alibi.find(params[:id])
   end
+
 end
