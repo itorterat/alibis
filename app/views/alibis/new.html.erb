@@ -2,12 +2,14 @@
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
+  <div data-controller=""class="form-inputs">
     <%= f.input :title, required: true %>
     <%= f.input :content, as: :text, required: true %>
     <%= f.input :image %>
     <%= f.input :category, collection: Alibi::CATEGORIES, include_blank: false %>
-    <%= f.input :date, as: :datetime, required: true %>
+    <%= f.input :date,
+            as: :string,
+            input_html: { data: { controller: "datepicker" } } %>
     <%= f.input :price, required: true, input_html: { value: @alibi.price || 1, min: 0 } %>
   </div>
 
