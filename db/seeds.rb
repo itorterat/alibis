@@ -82,7 +82,7 @@ users = User.all
     goal: %i[ask offer].sample,
     category: %w[family date journey speak cinema].sample,
     date: Faker::Date.between(from: '2023-11-24', to: '2026-09-25'),
-    image: Faker::Avatar.image,
+    image: '',
     price: rand(1..10000),
     user: users.sample
   )
