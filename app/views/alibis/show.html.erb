@@ -1,3 +1,14 @@
 <h1>Show</h1>
 
-<p><%= @alibi.inspect %></p>
+
+<h1><%= @alibi.title %></h1>
+<p><%= @alibi.content %></p>
+
+<%= link_to 'Edit', edit_alibi_path(@alibi) %> |
+<%= link_to 'Back', alibis_path %>
+
+<% if current_user && current_user == @alibi.user %>
+  <%= button_to 'Accept', accept_alibi_booking_path(@alibi, @alibi.booking), method: :patch %>
+  <%= button_to 'Decline', decline_alibi_booking_path(@alibi, @alibi.booking), method: :patch %>
+  <%= button_to 'Cancel', cancel_alibi_booking_path(@alibi, @alibi.booking), method: :patch %>
+<% end %>
