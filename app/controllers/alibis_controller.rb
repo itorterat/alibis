@@ -4,6 +4,9 @@ class AlibisController < ApplicationController
 
   def index
     @alibis = Alibi.all
+    if params[:query].present?
+      @alibis = @alibis.where(category: params[:query])
+    end
   end
 
   def show

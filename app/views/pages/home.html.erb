@@ -1,39 +1,44 @@
+<%# background-image: url("https://example.com/bck.png") %>
 
-<h1 class="text-center m-3">An App where you can find your perfect alibi!</h1>
 
-<div class="border border-3 rounded text-center p-3 mb-2 bg-secondary text-white">
-  <form class="form-inline">
-    <label class="my-1 mr-2 gap-2" for="inlineFormCustomSelectPref"><h4>What kind of Alibi do you search ?</h4></label>
-    <select class="custom-select my-1 mr-sm-2 gap-2" id="inlineFormCustomSelectPref">
-      <option selected>Choose...</option>
-      <option value="1">Family</option>
-      <option value="2">Dates</option>
-      <option value="3">Journey</option>
-      <option value="3">Speak</option>
-      <option value="3">Cinema</option>
-    </select>
-    <button type="submit" class="btn btn-primary my-1 gap-2">Submit</button>
-  </form>
+<div class="banner" style="background-image: url(https://www.femmaufoyer.net/wp-content/uploads/2022/07/reunion-de-famille-0.jpg);">
+  <div class="">
+    <h1 class="text-center align-middle vertical-align">An App where you can find your perfect alibi!</h1>
+  </div>
 </div>
 
-<h2 class="text-center">An App for Alibis</h2>
 
-<div class="container">
+<div class="container m-3">
+  <div class="row justify-content-center">
+    <div class="col-sm-8 my-3">
+      <%= form_with url: alibis_path, method: :get, class: "d-flex" do %>
+        <%= text_field_tag :query,
+              params[:query],
+              class: "form-control",
+              placeholder: "What kind of alibi do you need ?"
+          %>
+        <%= submit_tag "Search", name: "", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+
+  <h2 class="text-center">An App for Alibis</h2>
   <a href=""></a>
+
   <div class="row text-center">
     <div class="categories m-2 col" style="width: 18rem; height: 400px">
-      <img src="https://resize.elle.fr/original/var/plain_site/storage/images/loisirs/sorties/news/12-idees-pour-un-rendez-vous-amoureux-original/95701103-1-fre-FR/12-idees-pour-un-rendez-vous-amoureux-original.jpg" class="card-img-top" alt="...">
-      <div class="card body color p-2 border-top-0 p-3 mb-2 bg-dark text-white border border-secondary">
+      <%= image_tag("date.jpg", class: "card-img-top", alt: "...") %>
+      <div class="color rounded-bottom p-3 mb-2 bg-dark text-white">
         <h5 class="card-title">Alibi for dates</h5>
-        <p class="card-text">If you want to go in a fake date with someone...</p>
+        <p class="card-text">If you want to have a fake date with someone...</p>
         <div>
           <a href="alibis" class="btn btn-outline-secondary">Dates</a>
         </div>
       </div>
     </div>
     <div class="categories m-2 col" style="width: 18rem; height: 400px">
-      <img src="https://img.freepik.com/photos-premium/amis-regardent-film-au-cinema-salle-cinema-elegante-noire-sieges-confortables_307890-7345.jpg" class="card-img-top" alt="...">
-      <div class="card body color p-2 border-top-0 p-3 mb-2 bg-dark text-white border border-secondary">
+      <%= image_tag("cinema.jpg", class: "card-img-top", alt: "...") %>
+      <div class="color rounded-bottom p-3 mb-2 bg-dark text-white">
         <h5 class="card-title">Alibi for cinema</h5>
         <p class="card-text">If you want to go see a movie with someone...</p>
         <div>
@@ -42,8 +47,8 @@
       </div>
     </div>
     <div class="categories m-2 col" style="width: 18rem; height: 400px">
-      <img src="https://img.freepik.com/photos-gratuite/full-shot-femmes-bagages-rouges_23-2148687076.jpg?size=626&ext=jpg&ga=GA1.1.1826414947.1699833600&semt=ais" class="card-img-top" alt="...">
-      <div class="card body color p-2 border-top-0 p-3 mb-2 bg-dark text-white border border-secondary">
+      <%= image_tag("journey.jpg", class: "card-img-top", alt: "...") %>
+      <div class="color rounded-bottom p-3 mb-2 bg-dark text-white">
         <h5 class="card-title">Alibi for journey</h5>
         <p class="card-text">If you want to go in a journey with someone...</p>
         <div>
@@ -52,8 +57,8 @@
       </div>
     </div>
     <div class="categories m-2 col" style="width: 18rem; height: 400px">
-      <img src="https://wp.fr.aleteia.org/wp-content/uploads/sites/6/2019/10/web3-friends-women-talking-fun-shutterstock_318998291-por-milica-nistoran.jpg" class="card-img-top" alt="...">
-      <div class="card body color p-2 border-top-0 p-3 mb-2 bg-dark text-white border border-secondary">
+      <%= image_tag("speak.jpg", class: "card-img-top", alt: "...") %>
+      <div class="color rounded-bottom p-3 mb-2 bg-dark text-white">
         <h5 class="card-title">Alibi to talk to</h5>
         <p class="card-text">If you want to talk with someone in a café...</p>
         <div>
@@ -63,7 +68,7 @@
     </div>
     <div class="categories m-2 col" style="width: 18rem; height: 400px">
       <%= image_tag("family.jpg", class: "card-img-top", alt: "...") %>
-      <div class="card body color p-2 border-top-0 p-3 mb-2 bg-dark text-white border border-secondary">
+      <div class="color rounded-bottom p-3 mb-2 bg-dark text-white">
         <h5 class="card-title">Alibi for family</h5>
         <p class="card-text">If you need a fake companion to present...</p>
         <div>
