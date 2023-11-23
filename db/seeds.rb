@@ -21,7 +21,6 @@ Alibi.create!(
   goal: :ask,
   category: "family",
   date: Time.now + 5.day,
-  image: "",
   price: 1000,
   user: User.find_by(email: 'john@smith.com')
 )
@@ -33,7 +32,6 @@ Alibi.create!(
   goal: :ask,
   category: "speak",
   date: Time.now + 2.day,
-  image: "",
   price: 5000,
   user: User.find_by(email: 'jane@doe.com')
 )
@@ -44,7 +42,6 @@ Alibi.create!(
   goal: :ask,
   category: "date",
   date: Time.now + 7.day,
-  image: "",
   price: 70,
   user: User.find_by(email: 'john@smith.com')
 )
@@ -55,7 +52,6 @@ Alibi.create!(
   goal: :ask,
   category: "date",
   date: Time.now + 9.day,
-  image: "",
   price: 1870,
   user: User.find_by(email: 'jane@doe.com')
 )
@@ -82,7 +78,6 @@ users = User.all
     goal: %i[ask offer].sample,
     category: %w[family date journey speak cinema].sample,
     date: Faker::Date.between(from: '2023-11-24', to: '2026-09-25'),
-    image: '',
     price: rand(1..10000),
     user: users.sample
   )
