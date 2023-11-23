@@ -6,6 +6,7 @@ class Alibi < ApplicationRecord
   has_one_attached :photo
 
   enum status: { available: 0, archived: 1 }
+  enum goal: { ask: 0, offer: 1 }
 
   validates :title, presence: true, length: { minimum: 3, maximum: 100 }
   validates :content, presence: true, length: { minimum: 10 }
@@ -15,4 +16,5 @@ class Alibi < ApplicationRecord
   validates :date, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0 }
   validates :user, presence: true
+  validates :goal, inclusion: { in: goals.keys }
 end
