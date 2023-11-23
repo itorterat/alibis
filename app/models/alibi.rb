@@ -3,6 +3,7 @@ class Alibi < ApplicationRecord
 
   belongs_to :user
   has_many :bookings, dependent: :destroy
+  has_one_attached :photo
 
   enum status: { available: 0, archived: 1 }
 

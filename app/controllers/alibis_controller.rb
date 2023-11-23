@@ -47,7 +47,7 @@ class AlibisController < ApplicationController
   private
 
   def alibi_params
-    params.require(:alibi).permit(:title, :content, :status, :image, :category, :date, :price)
+    params.require(:alibi).permit(:title, :content, :status, :image, :category, :date, :price, :photo)
   end
 
   def set_alibi

@@ -1,6 +1,6 @@
 <div class="container my-3">
   <div class="card my-5 overflow-hidden rounded-4">
-    <%= image_tag("#{@alibi.category}.jpg", alt: "Alt de mon alibi") %>
+      <%= cl_image_tag @alibi.photo.key %>
     <div class="card-body">
       <h3 class="card-title"><%= @alibi.title %></h3>
       <p class="card-text"><%= @alibi.content %></p>
@@ -12,9 +12,3 @@
 
 <%= link_to 'Edit', edit_alibi_path(@alibi) %> |
 <%= link_to 'Back', alibis_path %>
-
-<% if current_user && current_user == @alibi.user %>
-  <%= button_to 'Accept', accept_alibi_booking_path(@alibi, @alibi.booking), method: :patch %>
-  <%= button_to 'Decline', decline_alibi_booking_path(@alibi, @alibi.booking), method: :patch %>
-  <%= button_to 'Cancel', cancel_alibi_booking_path(@alibi, @alibi.booking), method: :patch %>
-<% end %>

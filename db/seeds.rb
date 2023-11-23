@@ -25,7 +25,7 @@ Alibi.create(
   user: User.find_by(email: 'john@smith.com')
 )
 
-Alibi.create(
+Alibi.create!(
   title: "Besoin d'une Homme ",
   content: "J'ai une rendez-vous professionnel mon ex sera présent et je pour faire croire a mon ex que j'ai tourné la page",
   status: :available,
@@ -35,7 +35,7 @@ Alibi.create(
   price: 5000,
   user: User.find_by(email: 'jane@doe.com')
 )
-Alibi.create(
+Alibi.create!(
   title: "Sortie cinéma",
   content: "J'ai besoin de companie pour ",
   status: :archived,
@@ -45,7 +45,7 @@ Alibi.create(
   price: 70,
   user: User.find_by(email: 'john@smith.com')
 )
-Alibi.create(
+Alibi.create!(
   title: "J'ai besoin de faire des photos",
   content: "Je suis créatrice de contenu et je veux faire le couple Goal donc je cherche quelqu'un pour poser avec moi",
   status: :archived,
@@ -77,7 +77,7 @@ users = User.all
     status: [0, 1].sample,
     category: %w[family date journey speak cinema].sample,
     date: Faker::Date.between(from: '2023-11-24', to: '2026-09-25'),
-    image: Faker::Avatar.image,
+    image: '',
     price: rand(1..10000),
     user: users.sample
   )
