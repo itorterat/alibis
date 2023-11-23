@@ -1,20 +1,23 @@
-<%= simple_form_for(@alibi) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+<div class="container my-3">
+  <%= simple_form_for(@alibi) do |f| %>
+    <%= f.error_notification %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-    <%= f.input :title, required: true %>
-    <%= f.input :content, as: :text, required: true %>
-    <%= f.input :photo, as: :file %>
-    <%= f.input :category, collection: Alibi::CATEGORIES, include_blank: false %>
-    <%= f.input :date,
-            as: :string,
-            input_html: { data: { controller: "datepicker" } } %>
-    <%= f.input :goal, collection: Alibi.goals.keys, include_blank: false %>
-    <%= f.input :price, required: true, input_html: { value: @alibi.price || 1, min: 0 } %>
-  </div>
+    <div class="form-inputs">
+      <%= f.input :title, required: true %>
+      <%= f.input :content, as: :text, required: true %>
+      <%= f.input :photo, as: :file %>
+      <%= f.input :category, collection: Alibi::CATEGORIES, include_blank: false %>
+      <%= f.input :date,
+              as: :string,
+              input_html: { data: { controller: "datepicker" } } %>
+      <%= f.input :goal, collection: Alibi.goals.keys, include_blank: false %>
+      <%= f.input :reservation_type, collection: Alibi.reservation_types.keys, include_blank: false %>
+      <%= f.input :price, required: true, input_html: { value: @alibi.price || 1, min: 0 } %>
+    </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, 'Create Alibi', class: 'btn btn-primary' %>
-  </div>
-<% end %>
+    <div class="form-actions">
+      <%= f.button :submit, 'Create Alibi', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
