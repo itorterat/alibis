@@ -7,6 +7,7 @@ class Alibi < ApplicationRecord
 
   enum :status, { available: 0, archived: 1 }, default: :available
   enum :goal, { ask: 0, offer: 1 }, default: :ask
+  enum :reservation_type, { solo: 0, multi: 1 }, default: :solo
 
   validates :title, presence: true, length: { minimum: 3, maximum: 100 }
   validates :content, presence: true, length: { minimum: 10 }
@@ -16,4 +17,5 @@ class Alibi < ApplicationRecord
   validates :price, numericality: { greater_than_or_equal_to: 0 }
   validates :user, presence: true
   validates :goal, inclusion: { in: goals.keys }
+  validates :reservation_type, inclusion: { in: reservation_types.keys }
 end
