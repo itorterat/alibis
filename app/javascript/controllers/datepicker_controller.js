@@ -1,14 +1,12 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from "@hotwired/stimulus";
 import flatpickr from "flatpickr";
-import monthSelectPlugin from "flatpickr/dist/plugins/monthSelect"
+import ConfirmDatePlugin from "flatpickr/dist/plugins/confirmDate/confirmDate.js";
 
-
-// Connects to data-controller="datepicker"
 export default class extends Controller {
   connect() {
-    console.log(this.element)
     flatpickr(this.element, {
-      enableTime: true
+      enableTime: true,
+      plugins: [new ConfirmDatePlugin({})]
     });
   }
 }
