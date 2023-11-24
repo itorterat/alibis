@@ -1,73 +1,74 @@
 <div class="container my-3">
-  <div class="card my-5 overflow-hidden rounded-4">
+  <div class="card-wrapper d-flex bg-white rounded-5 img-container">
     <% if @alibi.photo.attached? %>
       <%= cl_image_tag @alibi.photo.key %>
     <% else %>
-      <%= image_tag("#{@alibi.category}.jpg", alt: "Alt de mon alibi") %>
+      <%= image_tag("#{@alibi.category}.jpg", class:"rounded-start-5", alt: "Alt de mon alibi") %>
     <% end %>
-    <div class="card-body">
-      <h3 class="card-title"><%= @alibi.title %></h3>
-      <p class="card-text"><%= @alibi.content %></p>
-    </div>
+    <div class="Card">
+      <div><strong>By</strong> <%=@alibi.user.email %></div>
+      <div>
+        <h3 class="card-title"><%= @alibi.title %></h3>
+        <p class="card-text"><%= @alibi.content %></p>
+      </div>
+      <div class="Date">
+        <div><strong>Category:</strong> <%= @alibi.category.capitalize %></div>
+        <div><strong>Date:</strong> <%= @alibi.date.strftime("%Y/%m/%d - %H:%M") %></div>
+        <div><strong>Price:</strong> <%= number_to_currency(@alibi.price, delimiter: ' ', format: "%n %u", precision: 0, unit: '€') %></div>
+      </div>
 
-    <div class="align-items-center border-top d-flex justify-content-around p-3">
-      <div><strong>Category:</strong> <%= @alibi.category.capitalize %></div>
-      <div><strong>Date:</strong> <%= @alibi.date.strftime("%Y/%m/%d - %H:%M") %></div>
-      <div><strong>Price:</strong> <%= number_to_currency(@alibi.price, delimiter: ' ', format: "%n %u", precision: 0, unit: '€') %></div>
-    </div>
-  </div>
-
-  <div class="bookings">
-    <% if current_user %>
-      <div class='d-flex justify-content-center gap-3'>
-        <% if current_user != @alibi.user %>
-          <% if @alibi.bookings.where(user_id: current_user).exists? %>
-            <button class='align-self-center btn btn-primary disabled px-5'>Already booked</button>
-          <% else %>
-            <%= simple_form_for [@alibi, @booking] do |f| %>
-              <%= f.button :submit, 'Book this alibi', class: 'align-self-center btn btn-outline-primary px-5' %>
+      <div class="bookings">
+        <% if current_user %>
+          <div class='book'>
+            <% if current_user != @alibi.user %>
+              <% if @alibi.bookings.where(user_id: current_user).exists? %>
+                <button class='align-self-center btn btn-primary disabled px-5'>Already booked</button>
+              <% else %>
+                <%= simple_form_for [@alibi, @booking] do |f| %>
+                  <%= f.button :submit, 'Book this alibi', class: 'align-self-center btn btn-outline-primary px-5' %>
+                <% end %>
+              <% end %>
+            <% else %>
+              <%= link_to "Edit this alibi", edit_alibi_path(@alibi), class: 'btn btn-outline-primary px-5' %>
+              <%= button_to 'Archive this alibi', archive_alibi_path(@alibi), method: :patch, class: 'btn btn-outline-danger px-5', data: { confirm: 'Are you sure you want to archive this alibi?' } %>
             <% end %>
+          </div>
+        <% end %>
+
+        <% if current_user && current_user == @alibi.user %>
+          <h3 class="mt-5">Bookings for my alibi</h3>
+          <% if @alibi.bookings.empty? %>
+            <p>No booking yet.</p>
           <% end %>
-        <% else %>
-          <%= link_to "Edit this alibi", edit_alibi_path(@alibi), class: 'btn btn-outline-primary px-5' %>
-          <%= button_to 'Archive this alibi', archive_alibi_path(@alibi), method: :patch, class: 'btn btn-outline-danger px-5', data: { confirm: 'Are you sure you want to archive this alibi?' } %>
+
+          <% @alibi.bookings.reverse.each do |booking| %>
+            <div class="notification">
+              <% avatar = (booking.user.photo.attached? ? booking.user.photo : "https://kitt.lewagon.com/placeholder/users/ssaunier") %>
+              <%= image_tag avatar, class: "avatar-large me-3" %>
+              <div class="notification-content">
+                <p><small><%= booking.created_at.strftime("%Y/%m/%d - %H:%M") %></small></p>
+                <p><%= booking.user.email %></p>
+              </div>
+
+              <div class="notification-actions">
+                <div class="d-flex gap-3">
+                  <% case %>
+                    <% when booking.pending? %>
+                      <%= button_to 'Accept', accept_booking_path(booking), method: :patch, class: 'btn btn-outline-success' %>
+                      <%= button_to 'Decline', decline_booking_path(booking), method: :patch, class: 'btn btn-outline-danger' %>
+                    <% when booking.approved? %>
+                      <button class='btn btn-success disabled'>Accepted</button>
+                      <%= button_to 'Cancel', cancel_booking_path(booking), method: :patch, class: 'btn btn-outline-dark' %>
+                    <% when booking.declined? %>
+                      <button class='btn btn-danger disabled'>Declined</button>
+                    <% when booking.cancelled? %>
+                      <button class='btn btn-dark disabled'>Cancelled</button>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
         <% end %>
       </div>
-    <% end %>
-
-    <% if current_user && current_user == @alibi.user %>
-      <h3 class="mt-5">Bookings for my alibi</h3>
-      <% if @alibi.bookings.empty? %>
-        <p>No booking yet.</p>
-      <% end %>
-
-      <% @alibi.bookings.reverse.each do |booking| %>
-        <div class="notification">
-          <% avatar = (booking.user.photo.attached? ? booking.user.photo : "https://kitt.lewagon.com/placeholder/users/ssaunier") %>
-          <%= image_tag avatar, class: "avatar-large me-3" %>
-          <div class="notification-content">
-            <p><small><%= booking.created_at.strftime("%Y/%m/%d - %H:%M") %></small></p>
-            <p><%= booking.user.email %></p>
-          </div>
-
-          <div class="notification-actions">
-            <div class="d-flex gap-3">
-              <% case %>
-                <% when booking.pending? %>
-                  <%= button_to 'Accept', accept_booking_path(booking), method: :patch, class: 'btn btn-outline-success' %>
-                  <%= button_to 'Decline', decline_booking_path(booking), method: :patch, class: 'btn btn-outline-danger' %>
-                <% when booking.approved? %>
-                  <button class='btn btn-success disabled'>Accepted</button>
-                  <%= button_to 'Cancel', cancel_booking_path(booking), method: :patch, class: 'btn btn-outline-dark' %>
-                <% when booking.declined? %>
-                  <button class='btn btn-danger disabled'>Declined</button>
-                <% when booking.cancelled? %>
-                  <button class='btn btn-dark disabled'>Cancelled</button>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    <% end %>
   </div>
 </div>
