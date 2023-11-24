@@ -13,3 +13,15 @@ img.card-img-top {
   justify-content: center;
   background-size: cover;
 }
+
+.categories {
+  width: 18rem;
+  height: 400px;
+}
+
+@media (max-width: 990px) {
+  .cartes {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
