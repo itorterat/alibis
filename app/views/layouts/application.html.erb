@@ -4,6 +4,7 @@
     <title>Alibis</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -17,5 +18,17 @@
     <%= render "shared/flashes" %>
     <%= yield %>
   </body>
+  <div class="footer bg-white mt-5">
+  <div class="footer-links">
+    <a href="https://github.com/lewagon" target="_blank"><i class="fab fa-github"></i></a>
+    <a href="https://instagram.com/lewagonfrance?igshid=OGQ5ZDc2ODk2ZA==" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.facebook.com/lewagon/?locale=fr_FR" target="_blank"><i class="fab fa-facebook"></i></a>
+    <a href="https://twitter.com/Lewagonparis" target="_blank"><i class="fab fa-twitter"></i></a>
+    <a href="https://fr.linkedin.com/showcase/lewagonfrance/" target="_blank"><i class="fab fa-linkedin"></i></a>
+  </div>
+  <div class="footer-copyright">
+    ©Alibis.com Made by The mango's members 🥭 at Le Wagon
+  </div>
+</div>
   <script src="https://unpkg.com/flatpickr@4.6.9/dist/plugins/scrollPlugin.js"></script>
 </html>

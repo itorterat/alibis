@@ -1,5 +1,5 @@
 <div class="container mt-3">
-  <div class="cards d-flex flex-wrap gap-3">
+  <div class="cards d-flex flex-wrap gap-3 justify-content-center mt-5">
     <% @alibis.where(status: 'available').reverse.each do |alibi| %>
       <div class="card col-3" style="width: 18rem;">
         <%= image_tag("#{alibi.category}.jpg", class: "card-img-top h-50 object-fit-cover", alt: "Alt de mon alibi") %>
