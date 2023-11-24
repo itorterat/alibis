@@ -1,16 +1,23 @@
+require "open-uri"
+
 puts 'Creating 2 users'
-User.create!(
+u = User.new(
   first_name: "John",
   last_name: "Smith",
   email: "john@smith.com",
   password: "password"
 )
-User.create!(
+u.photo.attach(io: URI.open(Faker::Avatar.image), filename: 'photo.jpg', content_type: 'image/jpeg')
+u.save!
+
+u = User.new(
   first_name: "Jane",
   last_name: "Doe",
   email: "jane@doe.com",
   password: "password"
 )
+u.photo.attach(io: URI.open(Faker::Avatar.image), filename: 'photo.jpg', content_type: 'image/jpeg')
+u.save!
 puts "Users created !"
 
 puts "Creating 4 alibis"
@@ -63,12 +70,14 @@ puts "Alibis created !"
 
 puts "Creating 20 users using Faker"
 20.times do
-  User.create!(
+  u = User.new(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
     email: Faker::Internet.email,
     password: Faker::Internet.password
   )
+  u.photo.attach(io: URI.open(Faker::Avatar.image), filename: 'photo.jpg', content_type: 'image/jpeg')
+  u.save!
 end
 puts 'Users from Faker created!'
 
