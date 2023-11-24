@@ -47,7 +47,7 @@
 
         <% @alibi.bookings.reverse.each do |booking| %>
           <div class="notification">
-            <% avatar = (booking.user.photo.attached? ? booking.user.photo : "https://kitt.lewagon.com/placeholder/users/ssaunier") %>
+            <% avatar = (booking.user.photo.attached? ? booking.user.photo : "avatar.png") %>
             <%= image_tag avatar, class: "avatar-large me-3" %>
             <div class="notification-content">
               <p><small><%= booking.created_at.strftime("%Y/%m/%d - %H:%M") %></small></p>
