@@ -6,7 +6,8 @@ export default class extends Controller {
   connect() {
     flatpickr(this.element, {
       enableTime: true,
-      plugins: [new ConfirmDatePlugin({})]
+      time_24hr: true,
+      plugins: [new ConfirmDatePlugin({})],
     });
   }
 }

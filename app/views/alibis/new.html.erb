@@ -9,7 +9,7 @@
     <%= f.input :category, collection: Alibi::CATEGORIES, include_blank: false %>
     <%= f.input :date,
             as: :string,
-            input_html: { data: { controller: "datepicker" } } %>
+            input_html: { data: { controller: "datepicker"} } %>
     <%= f.input :goal, collection: Alibi.goals.keys, include_blank: false %>
     <%= f.input :price, required: true, input_html: { value: @alibi.price || 1, min: 0 } %>
   </div>
