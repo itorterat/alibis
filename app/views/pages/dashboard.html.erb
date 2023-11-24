@@ -1,0 +1,104 @@
+<div class="container my-3">
+  <div>
+    <h2>My alibis</h2>
+    <% @alibis.reverse.each do |alibi| %>
+      <div class="notification">
+        <div class="notification-content">
+          <p><small><%= alibi.created_at.strftime("%Y/%m/%d - %H:%M") %></small></p>
+          <% if alibi.archived? %>
+            <%= link_to alibi.title, "#", class: 'text-decoration-none text-muted pe-none' %>
+          <% else %>
+            <%= link_to alibi.title, alibi_path(alibi) %>
+          <% end %>
+
+        </div>
+        <div class="notification-actions">
+          <div class="d-flex gap-3">
+            <span class="badge bg-primary fw-normal"><%= alibi.category.capitalize %></span>
+            <span class="badge bg-warning fw-normal"><%= alibi.price %>€</span>
+            <span class="badge bg-secondary fw-normal"><%= alibi.status %></span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    </ul>
+  </div>
+
+  <div class='my-3'>
+    <h2>Bookings from other users on my alibis</h2>
+    <% @alibis.joins(:bookings).where(status: :available).distinct.reverse.each do |alibi| %>
+      <ul class="list-group mb-1">
+        <h4><%= alibi.title %></h4>
+        <% alibi.bookings.reverse.each do |booking| %>
+          <div class="notification">
+            <% avatar = (booking.user.photo.attached? ? booking.user.photo : 'avatar.png') %>
+            <%= image_tag avatar, class: "avatar-large me-3" %>
+            <div class="notification-content">
+              <p><small><%= booking.created_at.strftime("%Y/%m/%d - %H:%M") %></small></p>
+              <p><%= booking.user.email %></p>
+            </div>
+
+            <div class="notification-actions">
+              <div class="d-flex gap-3">
+                <% case %>
+                  <% when booking.pending? %>
+                    <%= button_to 'Accept', accept_booking_path(booking), method: :patch, class: 'btn btn-outline-success' %>
+                    <%= button_to 'Decline', decline_booking_path(booking), method: :patch, class: 'btn btn-outline-danger' %>
+                  <% when booking.approved? %>
+                    <button class='btn btn-success disabled'>Accepted</button>
+                    <%= button_to 'Cancel', cancel_booking_path(booking), method: :patch, class: 'btn btn-outline-dark' %>
+                  <% when booking.declined? %>
+                    <button class='btn btn-danger disabled'>Declined</button>
+                  <% when booking.cancelled? %>
+                    <button class='btn btn-dark disabled'>Cancelled</button>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+
+  <div class='my-3'>
+    <h2>My bookings</h2>
+    <ul class="list-group">
+    <% if @bookings.empty? %>
+      <p>You booked nothing yet!</p>
+    <% else %>
+      <% @bookings.reverse.each do |booking| %>
+        <div class="notification">
+          <div class="notification-content">
+            <p><small><%= booking.created_at.strftime("%Y/%m/%d - %H:%M") %></small></p>
+            <% if booking.alibi.archived? %>
+              <%= link_to booking.alibi.title, "#", class: 'text-decoration-none text-muted pe-none' %>
+            <% else %>
+              <%= link_to booking.alibi.title, alibi_path(booking.alibi) %>
+            <% end %>
+            <div class="d-flex gap-1 mt-1">
+            <span class="badge bg-primary fw-normal"><%= booking.alibi.category.capitalize %></span>
+            <span class="badge bg-warning fw-normal"><%= booking.alibi.price %>€</span>
+            <span class="badge bg-secondary fw-normal"><%= booking.alibi.status %></span>
+          </div>
+          </div>
+
+          <div class="notification-actions">
+            <div class="d-flex gap-3">
+              <% case %>
+                <% when booking.pending? %>
+                  <span class='badge bg-dark fw-normal'>Pending</span>
+                <% when booking.approved? %>
+                  <span class='badge bg-success fw-normal'>Accepted</span>
+                <% when booking.declined? %>
+                  <span class='badge bg-danger fw-normal'>Declined</span>
+                <% when booking.cancelled? %>
+                  <span class='badge bg-secondary fw-normal'>Cancelled</span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    </ul>
+  </div>
+</div>
