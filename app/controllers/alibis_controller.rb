@@ -3,9 +3,10 @@ class AlibisController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
 
   def index
-    @alibis = Alibi.all
     if params[:query].present?
-      @alibis = @alibis.where(category: params[:query])
+      @alibis = Alibi.search_by_title_and_content(params[:query])
+    else
+      @alibis = Alibi.all
     end
   end
 

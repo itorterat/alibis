@@ -5,6 +5,14 @@ class Alibi < ApplicationRecord
   has_many :bookings, dependent: :destroy
   has_one_attached :photo
 
+  include PgSearch::Model
+
+  pg_search_scope :search_by_title_and_content,
+                  against: %i[title content],
+                  using: {
+                    tsearch: { prefix: true }
+                  }
+
   enum :status, { available: 0, archived: 1 }, default: :available
   enum :goal, { ask: 0, offer: 1 }, default: :ask
   enum :reservation_type, { solo: 0, multi: 1 }, default: :solo
