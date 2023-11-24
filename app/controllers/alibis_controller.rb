@@ -4,7 +4,7 @@ class AlibisController < ApplicationController
 
   def index
     if params[:query].present?
-      @alibis = Alibi.search_by_title_and_content(params[:query])
+      @alibis = Alibi.search_by_category_title_and_content(params[:query])
     else
       @alibis = Alibi.all
     end

@@ -7,8 +7,12 @@ class Alibi < ApplicationRecord
 
   include PgSearch::Model
 
-  pg_search_scope :search_by_title_and_content,
-                  against: %i[title content],
+  pg_search_scope :search_by_category_title_and_content,
+                  against: {
+                    category: "A",
+                    title: "C",
+                    content: "D"
+                  },
                   using: {
                     tsearch: { prefix: true }
                   }
