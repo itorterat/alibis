@@ -1,4 +1,10 @@
 <div class="container mt-3">
+  <% if @alibis.where(status: 'available').empty? %>
+  <div class="text-center mt-5">
+    <p class="my-5">No alibi available yet for <strong><%= params[:query] %></strong>.</p>
+    <%= link_to 'Back to Home page', root_path, class: 'btn btn-outline-dark' %>
+    <% end %>
+  </div>
   <div class="cards d-flex flex-wrap gap-3 justify-content-center mt-5">
     <% @alibis.where(status: 'available').reverse.each do |alibi| %>
       <div class="card col-3" style="width: 18rem; height: auto;">
